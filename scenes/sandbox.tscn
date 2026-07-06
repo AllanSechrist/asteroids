@@ -1,9 +1,24 @@
 [gd_scene format=3 uid="uid://hbbvpf1lbn3j"]
 
 [ext_resource type="PackedScene" uid="uid://cqk7p0e26gfk1" path="res://scenes/ship/ship.tscn" id="1_2ddto"]
+[ext_resource type="PackedScene" uid="uid://d3x0fnkj3jumk" path="res://scenes/asteroids/big_asteroid.tscn" id="2_rgld7"]
 
 [node name="Sandbox" type="Node2D" unique_id=1026063426]
 
 [node name="Ship" parent="." unique_id=923968611 instance=ExtResource("1_2ddto")]
 position = Vector2(562, 294)
 motion_mode = 1
+
+[node name="Asteroids" type="Node2D" parent="." unique_id=1279196508]
+
+[node name="BigAsteroid" parent="Asteroids" unique_id=1317233345 instance=ExtResource("2_rgld7")]
+position = Vector2(444, 119)
+
+[node name="BigAsteroid2" parent="Asteroids" unique_id=588302104 instance=ExtResource("2_rgld7")]
+position = Vector2(788, 445)
+
+[node name="BigAsteroid3" parent="Asteroids" unique_id=879094982 instance=ExtResource("2_rgld7")]
+position = Vector2(817, 181)
+
+[node name="BigAsteroid4" parent="Asteroids" unique_id=98907357 instance=ExtResource("2_rgld7")]
+position = Vector2(323, 395)
