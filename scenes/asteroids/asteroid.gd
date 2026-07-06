@@ -1,5 +1,5 @@
 extends Area2D
-class_name BigAsteroid
+class_name Asteroid
 
 @export var sprite_variants: Array[Texture2D] = []
 

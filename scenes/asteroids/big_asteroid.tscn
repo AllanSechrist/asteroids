@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://d3x0fnkj3jumk"]
 
 [ext_resource type="Texture2D" uid="uid://bgdqyw5faxnx6" path="res://assets/sprites/asteroids/BigAsteroid_1.tres" id="1_6lffe"]
-[ext_resource type="Script" uid="uid://b81sgrm3tv4xt" path="res://scenes/asteroids/big_asteroid.gd" id="1_y2s20"]
+[ext_resource type="Script" uid="uid://b81sgrm3tv4xt" path="res://scenes/asteroids/asteroid.gd" id="1_y2s20"]
 [ext_resource type="Texture2D" uid="uid://kt2dogxmksnn" path="res://assets/sprites/asteroids/BigAsteroid_2.tres" id="3_8kwfn"]
 [ext_resource type="Texture2D" uid="uid://dkg32uc7f83fc" path="res://assets/sprites/asteroids/BigAsteroid_3.tres" id="4_jtov4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y2s20"]
+radius = 54.00926
 
 [node name="BigAsteroid" type="Area2D" unique_id=1317233345]
 script = ExtResource("1_y2s20")
