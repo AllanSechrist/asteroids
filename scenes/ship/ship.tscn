@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cqk7p0e26gfk1"]
+
+[ext_resource type="Texture2D" uid="uid://bhryx456jti1s" path="res://assets/sprites/ship/ship.tres" id="1_u5c2e"]
+[ext_resource type="Script" uid="uid://dqofyeiwhniuq" path="res://scenes/ship/ship.gd" id="1_wxx60"]
+[ext_resource type="Texture2D" uid="uid://v25o10pmqpjd" path="res://assets/sprites/ship/ship1.tres" id="2_wxx60"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iyjb8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c54or"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_u5c2e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_wxx60")
+}],
+"loop": true,
+"name": &"ship",
+"speed": 5.0
+}]
+
+[node name="Ship" type="CharacterBody2D" unique_id=923968611]
+script = ExtResource("1_wxx60")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=587001004]
+shape = SubResource("CapsuleShape2D_iyjb8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1673155410]
+sprite_frames = SubResource("SpriteFrames_c54or")
+animation = &"ship"
