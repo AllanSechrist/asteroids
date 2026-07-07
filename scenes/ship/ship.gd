@@ -8,6 +8,7 @@ class_name Ship
 
 
 @onready var thruster_animation: AnimatedSprite2D = $ThrusterAnimation
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("move"):
@@ -29,5 +30,14 @@ func _physics_process(delta: float) -> void:
 	
 func wrap_screen() -> void:
 	var screen_size = get_viewport_rect().size
-	position.x = wrapf(position.x, 0, screen_size.x)
-	position.y = wrapf(position.y, 0, screen_size.y)
+	var radius = collision_shape_2d.shape.radius
+	
+	if position.x < -radius:
+		position.x = screen_size.x + radius
+	elif position.x > screen_size.x + radius:
+		position.x = -radius
+		
+	if position.y < -radius:
+		position.y = screen_size.y + radius
+	elif position.y > screen_size.y + radius:
+		position.y = -radius
