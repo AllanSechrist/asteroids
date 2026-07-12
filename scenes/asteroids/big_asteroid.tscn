@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://b81sgrm3tv4xt" path="res://scenes/asteroids/asteroid.gd" id="1_y2s20"]
 [ext_resource type="Texture2D" uid="uid://kt2dogxmksnn" path="res://assets/sprites/asteroids/BigAsteroid_2.tres" id="3_8kwfn"]
 [ext_resource type="Texture2D" uid="uid://dkg32uc7f83fc" path="res://assets/sprites/asteroids/BigAsteroid_3.tres" id="4_jtov4"]
+[ext_resource type="PackedScene" uid="uid://b4kwf27f8y7mv" path="res://scenes/asteroids/med_asteroid.tscn" id="5_jtov4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y2s20"]
 radius = 54.00926
@@ -11,6 +12,7 @@ radius = 54.00926
 [node name="BigAsteroid" type="Area2D" unique_id=1317233345]
 script = ExtResource("1_y2s20")
 sprite_variants = Array[Texture2D]([ExtResource("1_6lffe"), ExtResource("3_8kwfn"), ExtResource("4_jtov4")])
+asteroid_scene = ExtResource("5_jtov4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=344104015]
 shape = SubResource("CircleShape2D_y2s20")
@@ -18,4 +20,5 @@ shape = SubResource("CircleShape2D_y2s20")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1638196074]
 texture = ExtResource("1_6lffe")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

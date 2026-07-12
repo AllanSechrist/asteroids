@@ -1,4 +1,5 @@
 extends Area2D
+class_name Bullet
 
 @export var bullet_speed := 400.0
 @export var bullet_lifetime := 1.5

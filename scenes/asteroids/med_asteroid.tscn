@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://wd6sbr0qyw1f" path="res://assets/sprites/asteroids/MedAsteroid_1.tres" id="2_k7t6i"]
 [ext_resource type="Texture2D" uid="uid://bde0y7wnr6pmk" path="res://assets/sprites/asteroids/MedAsteroid_2.tres" id="3_rr77u"]
 [ext_resource type="Texture2D" uid="uid://dtdyupqysnswg" path="res://assets/sprites/asteroids/MedAsteroid_3.tres" id="4_jdo40"]
+[ext_resource type="PackedScene" uid="uid://uew4s48w4shp" path="res://scenes/asteroids/small_asteroid.tscn" id="5_rr77u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uu1r3"]
 radius = 27.073973
@@ -11,6 +12,7 @@ radius = 27.073973
 [node name="MedAsteroid" type="Area2D" unique_id=1836129986]
 script = ExtResource("1_l8wfa")
 sprite_variants = Array[Texture2D]([ExtResource("2_k7t6i"), ExtResource("3_rr77u"), ExtResource("4_jdo40")])
+asteroid_scene = ExtResource("5_rr77u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=588510]
 shape = SubResource("CircleShape2D_uu1r3")
@@ -18,4 +20,5 @@ shape = SubResource("CircleShape2D_uu1r3")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=189168715]
 texture = ExtResource("2_k7t6i")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
