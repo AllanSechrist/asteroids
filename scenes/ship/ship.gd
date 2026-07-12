@@ -28,6 +28,9 @@ func _physics_process(delta: float) -> void:
 	wrap_screen()
 	move_and_slide()
 	
+func death() -> void:
+	print("Ship hit!")	
+
 func wrap_screen() -> void:
 	var screen_size = get_viewport_rect().size
 	var radius = collision_shape_2d.shape.radius

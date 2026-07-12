@@ -17,3 +17,5 @@ shape = SubResource("CircleShape2D_y2s20")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1638196074]
 texture = ExtResource("1_6lffe")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

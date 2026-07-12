@@ -37,3 +37,8 @@ func wrap_screen() -> void:
 		position.y = screen_size.y + radius
 	elif position.y > screen_size.y + radius:
 		position.y = -radius
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body is Ship:
+		body.death()
