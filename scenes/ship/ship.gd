@@ -1,12 +1,16 @@
 extends CharacterBody2D
 class_name Ship
 
+@export_category("Ship Stats")
 @export var turn_speed := 5.0
 @export var thrust_speed := 200.0
 @export var drag := 5.0
 @export var max_speed := 300.0
 
+@export_category("Child Scenes")
+@export var bullet_scene: PackedScene
 
+@onready var muzzle: Marker2D = $Muzzle
 @onready var thruster_animation: AnimatedSprite2D = $ThrusterAnimation
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
@@ -25,8 +29,17 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("turn_right"):
 		rotate(turn_speed * delta)
 		
+	if Input.is_action_just_pressed("fire"):
+		fire()
+		
 	wrap_screen()
 	move_and_slide()
+	
+func fire() -> void:
+	var bullet = bullet_scene.instantiate()
+	bullet.global_position = muzzle.global_position
+	bullet.global_rotation = global_rotation
+	get_tree().current_scene.add_child(bullet)
 	
 func death() -> void:
 	print("Ship hit!")	

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bfkg2t7kaypb7"]
+
+[ext_resource type="Texture2D" uid="uid://bocdafis3khik" path="res://assets/sprites/ship/bullet.tres" id="1_3u5ev"]
+[ext_resource type="Script" uid="uid://kgcurpkyqbh1" path="res://scenes/ship/bullet.gd" id="1_gbfim"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gbfim"]
+radius = 6.0
+
+[node name="Bullet" type="Area2D" unique_id=1204786502]
+script = ExtResource("1_gbfim")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=748817624]
+shape = SubResource("CircleShape2D_gbfim")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1522613851]
+texture = ExtResource("1_3u5ev")
+
+[node name="BulletTimer" type="Timer" parent="." unique_id=1580710348]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="BulletTimer" to="." method="_on_bullet_timer_timeout"]
