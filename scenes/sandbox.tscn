@@ -1,11 +1,14 @@
 [gd_scene format=3 uid="uid://hbbvpf1lbn3j"]
 
 [ext_resource type="PackedScene" uid="uid://cqk7p0e26gfk1" path="res://scenes/ship/ship.tscn" id="1_2ddto"]
+[ext_resource type="Script" uid="uid://boohtonlyx0jh" path="res://scenes/game manager.gd" id="1_16ffl"]
 [ext_resource type="PackedScene" uid="uid://d3x0fnkj3jumk" path="res://scenes/asteroids/big_asteroid.tscn" id="2_rgld7"]
 [ext_resource type="PackedScene" uid="uid://b4kwf27f8y7mv" path="res://scenes/asteroids/med_asteroid.tscn" id="3_a8pr3"]
 [ext_resource type="PackedScene" uid="uid://uew4s48w4shp" path="res://scenes/asteroids/small_asteroid.tscn" id="4_j6lu3"]
+[ext_resource type="PackedScene" uid="uid://dqpenmioq0la4" path="res://scenes/UI/ui.tscn" id="6_17a3a"]
 
 [node name="Sandbox" type="Node2D" unique_id=1026063426]
+script = ExtResource("1_16ffl")
 
 [node name="Ship" parent="." unique_id=923968611 instance=ExtResource("1_2ddto")]
 position = Vector2(562, 294)
@@ -57,3 +60,5 @@ position = Vector2(671, 250)
 
 [node name="SmallAsteroid4" parent="Asteroids/SmallAsteroids" unique_id=146855756 instance=ExtResource("4_j6lu3")]
 position = Vector2(291, 220)
+
+[node name="UI" parent="." unique_id=2099741367 instance=ExtResource("6_17a3a")]
