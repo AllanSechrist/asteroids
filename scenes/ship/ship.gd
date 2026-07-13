@@ -14,6 +14,9 @@ class_name Ship
 @onready var thruster_animation: AnimatedSprite2D = $ThrusterAnimation
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
+signal hit
+	
+
 func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("move"):
 		var forward_direction = Vector2.RIGHT.rotated(rotation)
@@ -42,6 +45,7 @@ func fire() -> void:
 	get_tree().current_scene.add_child(bullet)
 	
 func death() -> void:
+	hit.emit()
 	print("Ship hit!")	
 
 func wrap_screen() -> void:

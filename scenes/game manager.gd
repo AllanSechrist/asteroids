@@ -3,6 +3,9 @@ class_name GameManager
 
 @export var starting_lives := 3
 @export var asteroid_scene: PackedScene
+
+@onready var ship: Ship = $Ship
+
 var lives: int
 var score := 0
 var high_score := 1000
@@ -18,6 +21,7 @@ signal game_over
 
 func _ready () -> void:
 	lives = starting_lives
+	ship.hit.connect(_on_ship_hit)
 	spawn_asteroids()
 
 func spawn_asteroids() -> void:
@@ -42,7 +46,7 @@ func _on_all_asteroids_cleared() -> void:
 	current_level += 1
 	spawn_asteroids()
 	
-func lose_life() -> void:
+func _on_ship_hit() -> void:
 	lives -= 1
 	lives_changed.emit(lives)
 	if lives <= 0:
