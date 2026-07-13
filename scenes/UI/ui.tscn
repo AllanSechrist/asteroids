@@ -3,41 +3,45 @@
 [ext_resource type="LabelSettings" uid="uid://b4vgeg1evjt7k" path="res://scenes/UI/UI_Score.tres" id="1_suays"]
 [ext_resource type="Script" uid="uid://bj0swg572bbnj" path="res://scenes/UI/ui.gd" id="1_yb1mt"]
 
-[node name="UI" type="Control" unique_id=2099741367]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="UI" type="CanvasLayer" unique_id=447845632]
 script = ExtResource("1_yb1mt")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1252703503]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=471034786]
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_constants/separation = 500
+theme_override_constants/separation = 300
 alignment = 1
 
-[node name="Lives" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1852677578]
+[node name="LivesLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1852677578]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "0"
+text = "Lives: 9999"
 label_settings = ExtResource("1_suays")
 
-[node name="Score" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1442350110]
+[node name="ScoreLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1442350110]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "0"
+text = "Score: 9999"
 label_settings = ExtResource("1_suays")
+horizontal_alignment = 1
 
-[node name="HighScore" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1331365068]
+[node name="HighLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1331365068]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "0"
+text = "High Score: 9999"
 label_settings = ExtResource("1_suays")
+horizontal_alignment = 2

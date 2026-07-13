@@ -1,13 +1,27 @@
-extends Control
+extends CanvasLayer
 class_name UI
 
-@onready var lives: Label = $MarginContainer/HBoxContainer/Lives
-@onready var score: Label = $MarginContainer/HBoxContainer/Score
-@onready var high_score: Label = $MarginContainer/HBoxContainer/HighScore
+@onready var lives_label: Label = %LivesLabel
+@onready var score_label: Label = %ScoreLabel
+@onready var high_label: Label = %HighLabel
+
 
 
 func _ready() -> void:
-	pass
+	var game_manager := get_parent() as GameManager
+	game_manager.score_changed.connect(_on_score_changed)
+	game_manager.lives_changed.connect(_on_lives_changed)
+	game_manager.game_over.connect(_on_game_over)
 	
-func update_label(label: Label) -> void:
+	# Set labels based on game manager data
+	_on_score_changed(game_manager.score)
+	_on_lives_changed(game_manager.lives)
+	
+func _on_score_changed(new_score: int) -> void:
+	score_label.text = "SCORE: %d" % new_score
+	
+func _on_lives_changed(new_lives: int) -> void:
+	lives_label.text = "LIVES: %d" % new_lives
+	
+func _on_game_over() -> void:
 	pass

@@ -1,7 +1,10 @@
 extends Area2D
 class_name Asteroid
 
+enum Size { BIG, MEDIUM, SMALL }
+
 @export_category("Asteroid Stats")
+@export var size: Size = Size.BIG
 @export var sprite_variants: Array[Texture2D] = []
 @export var speed: float = 100.0
 @export var rotation_speed: float = 1.0
@@ -15,7 +18,17 @@ class_name Asteroid
 
 var velocity: Vector2 = Vector2.ZERO
 
+const STATS := {
+	Size.BIG: { speed = 60.0, points = 20 },
+	Size.MEDIUM: { speed = 100.0, points = 50 },
+	Size.SMALL: { speed = 150.0, points = 100}
+}
+
+signal destroyed(asteroid: Area2D)
+
 func _ready() -> void:
+	var stats = STATS[size]
+	speed = stats.speed
 	if sprite_variants.size() > 0:
 		sprite_2d.texture = sprite_variants.pick_random()
 	sprite_2d.flip_h = randi() % 2 == 0 # randomly flips sprite.
@@ -24,16 +37,17 @@ func _ready() -> void:
 	velocity = Vector2.RIGHT.rotated(angle) * speed
 	rotation_speed *= [-1, 1].pick_random()
 	
+	
 func _physics_process(delta: float) -> void:
 	position += velocity * delta
 	rotation += rotation_speed * delta
 	wrap_screen()
 	
-func spawn_asteroid_chunk() -> void:
-	var asteroid_chunk = asteroid_scene.instantiate()
-	asteroid_chunk.global_position = global_position
-	asteroid_chunk.global_rotation = global_rotation
-	get_tree().current_scene.add_child.call_deferred(asteroid_chunk)
+#func spawn_asteroid_chunk() -> void:
+	#var asteroid_chunk = asteroid_scene.instantiate()
+	#asteroid_chunk.global_position = global_position
+	#asteroid_chunk.global_rotation = global_rotation
+	#get_tree().current_scene.add_child.call_deferred(asteroid_chunk)
 
 func wrap_screen() -> void:
 	var screen_size = get_viewport_rect().size
@@ -58,7 +72,4 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area is Bullet:
 		area.queue_free()
-		if asteroid_scene != null:
-			for i in asteroid_chunks:
-				spawn_asteroid_chunk()
-		queue_free()
+		destroyed.emit(self)
