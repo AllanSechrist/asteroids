@@ -4,5 +4,6 @@
 
 [resource]
 font = ExtResource("1_wvnfg")
+font_size = 22
 outline_size = 1
 outline_color = Color(0, 0, 0, 1)

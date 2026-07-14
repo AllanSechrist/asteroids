@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://8eholi4ay2oe"]
+
+[ext_resource type="Texture2D" uid="uid://bhryx456jti1s" path="res://assets/sprites/ship/ship.tres" id="1_57as0"]
+
+[node name="LivesIcon" type="Control" unique_id=1472490304]
+custom_minimum_size = Vector2(32, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 32.0
+offset_bottom = 50.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1618448252]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5707964
+scale = Vector2(0.6, 0.6)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("1_57as0")
