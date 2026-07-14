@@ -3,6 +3,7 @@ class_name GameManager
 
 @export var starting_lives := 3
 @export var asteroid_scene: PackedScene
+@export var starting_asteroids := 2
 
 @onready var ship: Ship = $Ship
 
@@ -11,7 +12,7 @@ var score := 0
 var high_score := 1000
 var current_level := 1
 var max_asteroids = 10
-var asteroids = 6
+var asteroids: int
 
 #UI
 signal score_changed(new_score: int)
@@ -25,12 +26,14 @@ func _ready () -> void:
 	spawn_asteroids()
 
 func spawn_asteroids() -> void:
-	for i in asteroids:
+	for i in starting_asteroids:
 		var asteroid := asteroid_scene.instantiate()
 		asteroid.destroyed.connect(_on_asteroid_destroyed)
-		add_child(asteroid)
+		add_child.call_deferred(asteroid)
+		asteroids += 1
 
 func _on_asteroid_destroyed(asteroid: Area2D) -> void:
+	
 	score += Asteroid.STATS[asteroid.size].points
 	score_changed.emit(score)
 	if asteroid.size != Asteroid.Size.SMALL:
@@ -40,11 +43,21 @@ func _on_asteroid_destroyed(asteroid: Area2D) -> void:
 			chunk.global_position = asteroid.global_position
 			chunk.destroyed.connect(_on_asteroid_destroyed)
 			add_child.call_deferred(chunk)
+			asteroids += 1
+	asteroid.remove_from_group("Asteroids")
 	asteroid.queue_free()
+	asteroids -= 1
+	print(asteroids)
+	if asteroids == 0:
+		all_asteroids_cleared()
 	
-func _on_all_asteroids_cleared() -> void:
+	
+func all_asteroids_cleared() -> void:
 	current_level += 1
+	starting_asteroids = clampi(starting_asteroids + 2, 0, 10)
 	spawn_asteroids()
+	var clear_message = "Level %d cleared!" % (current_level - 1)
+	print(clear_message)
 	
 func _on_ship_hit() -> void:
 	lives -= 1

@@ -27,6 +27,7 @@ const STATS := {
 signal destroyed(asteroid: Area2D)
 
 func _ready() -> void:
+	add_to_group("Asteroids")
 	var stats = STATS[size]
 	speed = stats.speed
 	if sprite_variants.size() > 0:

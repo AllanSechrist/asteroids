@@ -8,7 +8,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_1myxn"]
 radius = 17.0
 
-[node name="SmallAsteroid" type="Area2D" unique_id=2118094904]
+[node name="SmallAsteroid" type="Area2D" unique_id=2118094904 groups=["Asteroids"]]
 script = ExtResource("1_ckhff")
 sprite_variants = Array[Texture2D]([ExtResource("2_ick8f"), ExtResource("3_3t74j"), ExtResource("4_tfwtt")])
 

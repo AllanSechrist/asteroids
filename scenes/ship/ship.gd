@@ -34,6 +34,11 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("fire"):
 		fire()
+	
+	if Input.is_action_just_pressed("clear_debug"):
+		var asteroids = get_tree().get_nodes_in_group("Asteroids")
+		for asteroid in asteroids:
+			asteroid.queue_free()
 		
 	wrap_screen()
 	move_and_slide()
@@ -45,8 +50,7 @@ func fire() -> void:
 	get_tree().current_scene.add_child(bullet)
 	
 func death() -> void:
-	hit.emit()
-	print("Ship hit!")	
+	hit.emit()	
 
 func wrap_screen() -> void:
 	var screen_size = get_viewport_rect().size
