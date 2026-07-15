@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://b67g4pcwfh8nb"]
+
+[ext_resource type="Script" uid="uid://bksqrydbboo4a" path="res://scenes/UI/menu_base.gd" id="1_8ua3u"]
+
+[node name="MenuBase" type="Control" unique_id=1212263908]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_8ua3u")
+
+[node name="TitleLabel" type="Label" parent="." unique_id=853874233]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="ScoreLabel" type="Label" parent="." unique_id=1758191919]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="StartButton" type="Button" parent="." unique_id=1423274167]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
