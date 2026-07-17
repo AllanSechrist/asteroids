@@ -63,5 +63,5 @@ func _on_ship_hit() -> void:
 	lives -= 1
 	lives_changed.emit(lives)
 	if lives <= 0:
-		game_over.emit()
-	
+		GameState.last_score = score
+		get_tree().change_scene_to_file("res://scenes/UI/menu_base.tscn")

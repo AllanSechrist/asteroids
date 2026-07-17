@@ -16,7 +16,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Events="*uid://bt0a2w7412wm7"
+GameState="*uid://c5rsfn0ap8qns"
 
 [global_group]
 

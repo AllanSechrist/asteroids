@@ -1,23 +1,64 @@
 [gd_scene format=3 uid="uid://b67g4pcwfh8nb"]
 
 [ext_resource type="Script" uid="uid://bksqrydbboo4a" path="res://scenes/UI/menu_base.gd" id="1_8ua3u"]
+[ext_resource type="FontFile" uid="uid://6rxumxgdsygq" path="res://assets/fonts/Orbitron-VariableFont_wght.ttf" id="2_14qtu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hrkk7"]
+font = ExtResource("2_14qtu")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_3sj12"]
+font = ExtResource("2_14qtu")
 
 [node name="MenuBase" type="Control" unique_id=1212263908]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_8ua3u")
 
-[node name="TitleLabel" type="Label" parent="." unique_id=853874233]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=408601094]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.0
+offset_top = -29.0
+offset_right = 54.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
 
-[node name="ScoreLabel" type="Label" parent="." unique_id=1758191919]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="TitleLabel" type="Label" parent="VBoxContainer" unique_id=853874233]
+layout_mode = 2
+text = "ASTEROIDS"
+label_settings = SubResource("LabelSettings_hrkk7")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="StartButton" type="Button" parent="." unique_id=1423274167]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="ScoreLabel" type="Label" parent="VBoxContainer" unique_id=1758191919]
+layout_mode = 2
+text = "High Score: 9999"
+label_settings = SubResource("LabelSettings_3sj12")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartButton" type="Button" parent="VBoxContainer" unique_id=1423274167]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_14qtu")
+text = "Start"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=1042402788]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_14qtu")
+text = "Quit
+"
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

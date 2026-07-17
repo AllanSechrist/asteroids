@@ -1,12 +1,17 @@
 extends Control
 class_name MenuBase
 
-@export var title_text: String = "ASTEROIDS"
-@export var show_score: bool = false
+@onready var title_label: Label = $VBoxContainer/TitleLabel
+@onready var score_label: Label = $VBoxContainer/ScoreLabel
+@onready var start_button: Button = $VBoxContainer/StartButton
+@onready var quit_button: Button = $VBoxContainer/QuitButton
 
-@onready var title_label: Label = $TitleLabel
-@onready var score_label: Label = $ScoreLabel
-@onready var start_button: Button = $StartButton
+
+func _ready() -> void:
+	if GameState.last_score > 0:
+		setup("GAME OVER", GameState.last_score)
+	else:
+		setup("ASTEROIDS")
 
 func setup(text: String, score: int = -1) -> void:
 	title_label.text = text
