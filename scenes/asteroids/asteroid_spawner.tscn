@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://bcs1gloubrt3x"]
 
+[ext_resource type="Script" uid="uid://cwoq6l1hpmk14" path="res://scenes/asteroids/asteroid_spawner.gd" id="1_vsl41"]
+
 [node name="AsteroidSpawner" type="Node2D" unique_id=686080092]
+script = ExtResource("1_vsl41")
 
 [node name="Top" type="Marker2D" parent="." unique_id=1271357089]
 position = Vector2(576, 0)

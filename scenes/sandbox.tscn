@@ -3,12 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://cqk7p0e26gfk1" path="res://scenes/ship/ship.tscn" id="1_2ddto"]
 [ext_resource type="Script" uid="uid://boohtonlyx0jh" path="res://scenes/game manager.gd" id="1_16ffl"]
 [ext_resource type="PackedScene" uid="uid://d3x0fnkj3jumk" path="res://scenes/asteroids/big_asteroid.tscn" id="2_rgld7"]
+[ext_resource type="PackedScene" uid="uid://bcs1gloubrt3x" path="res://scenes/asteroids/asteroid_spawner.tscn" id="5_16ffl"]
 [ext_resource type="PackedScene" uid="uid://8eholi4ay2oe" path="res://scenes/UI/lives_icon.tscn" id="5_tpt06"]
 [ext_resource type="PackedScene" uid="uid://dqpenmioq0la4" path="res://scenes/UI/ui.tscn" id="6_17a3a"]
 
 [node name="Sandbox" type="Node2D" unique_id=1026063426]
 script = ExtResource("1_16ffl")
-asteroid_scene = ExtResource("2_rgld7")
 
 [node name="Ship" parent="." unique_id=923968611 instance=ExtResource("1_2ddto")]
 position = Vector2(562, 294)
@@ -16,3 +16,6 @@ motion_mode = 1
 
 [node name="UI" parent="." unique_id=2099741367 instance=ExtResource("6_17a3a")]
 life_icon_scene = ExtResource("5_tpt06")
+
+[node name="AsteroidSpawner" parent="." unique_id=686080092 instance=ExtResource("5_16ffl")]
+asteroid_scene = ExtResource("2_rgld7")
