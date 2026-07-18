@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bcs1gloubrt3x"]
+
+[node name="AsteroidSpawner" type="Node2D" unique_id=686080092]
+
+[node name="Top" type="Marker2D" parent="." unique_id=1271357089]
+position = Vector2(576, 0)
+
+[node name="Right" type="Marker2D" parent="." unique_id=863459531]
+position = Vector2(1152, 324)
+
+[node name="Bottom" type="Marker2D" parent="." unique_id=1278850484]
+position = Vector2(576, 648)
+
+[node name="Left" type="Marker2D" parent="." unique_id=1432731399]
+position = Vector2(0, 324)
