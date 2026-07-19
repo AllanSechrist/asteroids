@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bcs1gloubrt3x" path="res://scenes/asteroids/asteroid_spawner.tscn" id="5_16ffl"]
 [ext_resource type="PackedScene" uid="uid://8eholi4ay2oe" path="res://scenes/UI/lives_icon.tscn" id="5_tpt06"]
 [ext_resource type="PackedScene" uid="uid://dqpenmioq0la4" path="res://scenes/UI/ui.tscn" id="6_17a3a"]
+[ext_resource type="PackedScene" uid="uid://1wkwro621d74" path="res://scenes/ship/respawn_point.tscn" id="7_17a3a"]
 
 [node name="Sandbox" type="Node2D" unique_id=1026063426]
 script = ExtResource("1_16ffl")
@@ -19,3 +20,5 @@ life_icon_scene = ExtResource("5_tpt06")
 
 [node name="AsteroidSpawner" parent="." unique_id=686080092 instance=ExtResource("5_16ffl")]
 asteroid_scene = ExtResource("2_rgld7")
+
+[node name="RespawnPoint" parent="." unique_id=851458566 instance=ExtResource("7_17a3a")]

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://1wkwro621d74"]
+
+[ext_resource type="Script" uid="uid://bp2rvb83tuc7u" path="res://scenes/ship/respawn_point.gd" id="1_5bloh"]
+
+[node name="RespawnPoint" type="Marker2D" unique_id=851458566]
+script = ExtResource("1_5bloh")
+
+[node name="Label" type="Label" parent="." unique_id=1144028482]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "test"

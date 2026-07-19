@@ -3,6 +3,7 @@ class_name GameManager
 
 @export var starting_lives := 3
 @export var starting_asteroids := 6
+@export var respawn_time := 1.0
 
 
 @onready var ship: Ship = $Ship
@@ -42,6 +43,7 @@ func _on_all_asteroids_destoryed() -> void:
 func _on_ship_hit() -> void:
 	lives -= 1
 	lives_changed.emit(lives)
+	await get_tree().create_timer(respawn_time).timeout
 	if lives <= 0:
 		GameState.last_score = score
 		get_tree().change_scene_to_file.call_deferred("res://scenes/UI/menu_base.tscn")

@@ -50,6 +50,7 @@ func fire() -> void:
 	get_tree().current_scene.add_child(bullet)
 	
 func death() -> void:
+	# death animation
 	hit.emit()	
 
 func wrap_screen() -> void:
