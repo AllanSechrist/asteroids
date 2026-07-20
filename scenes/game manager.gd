@@ -3,11 +3,11 @@ class_name GameManager
 
 @export var starting_lives := 3
 @export var starting_asteroids := 6
-@export var respawn_time := 1.0
 
 
 @onready var ship: Ship = $Ship
 @onready var asteroid_spawner: AsteroidSpawner = $AsteroidSpawner
+@onready var respawn_point: RespawnPoint = $RespawnPoint
 
 var lives: int
 var score := 0
@@ -24,7 +24,7 @@ signal game_over
 
 func _ready () -> void:
 	lives = starting_lives
-	ship.hit.connect(_on_ship_hit)
+	ship.death.connect(_on_ship_death)
 	asteroid_spawner.all_asteroids_destroyed.connect(_on_all_asteroids_destoryed)
 	asteroid_spawner.asteroid_score.connect(_on_score_change)
 	asteroid_spawner.spawn_asteroids(starting_asteroids)
@@ -40,10 +40,11 @@ func _on_all_asteroids_destoryed() -> void:
 	var clear_message = "Level %d cleared!" % (current_level - 1)
 	print(clear_message)
 	
-func _on_ship_hit() -> void:
+func _on_ship_death() -> void:
 	lives -= 1
 	lives_changed.emit(lives)
-	await get_tree().create_timer(respawn_time).timeout
+	#await get_tree().create_timer(respawn_time).timeout
+	#ship.global_position = respawn_point.global_position
 	if lives <= 0:
 		GameState.last_score = score
 		get_tree().change_scene_to_file.call_deferred("res://scenes/UI/menu_base.tscn")

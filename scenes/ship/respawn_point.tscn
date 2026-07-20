@@ -4,8 +4,3 @@
 
 [node name="RespawnPoint" type="Marker2D" unique_id=851458566]
 script = ExtResource("1_5bloh")
-
-[node name="Label" type="Label" parent="." unique_id=1144028482]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "test"

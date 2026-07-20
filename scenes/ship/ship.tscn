@@ -39,3 +39,7 @@ animation = &"Thrust"
 
 [node name="Muzzle" type="Marker2D" parent="." unique_id=720567679]
 position = Vector2(40, -2)
+
+[node name="InvulnerabilityTimer" type="Timer" parent="." unique_id=1440516381]
+
+[connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]

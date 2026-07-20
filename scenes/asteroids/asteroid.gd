@@ -43,12 +43,6 @@ func _physics_process(delta: float) -> void:
 	position += velocity * delta
 	rotation += rotation_speed * delta
 	wrap_screen()
-	
-#func spawn_asteroid_chunk() -> void:
-	#var asteroid_chunk = asteroid_scene.instantiate()
-	#asteroid_chunk.global_position = global_position
-	#asteroid_chunk.global_rotation = global_rotation
-	#get_tree().current_scene.add_child.call_deferred(asteroid_chunk)
 
 func wrap_screen() -> void:
 	var screen_size = get_viewport_rect().size
@@ -63,11 +57,6 @@ func wrap_screen() -> void:
 		position.y = screen_size.y + radius
 	elif position.y > screen_size.y + radius:
 		position.y = -radius
-
-
-func _on_body_entered(body: Node2D) -> void:
-	if body is Ship:
-		body.death()
 
 
 func _on_area_entered(area: Area2D) -> void:
