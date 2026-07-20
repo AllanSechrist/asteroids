@@ -4,8 +4,12 @@
 [ext_resource type="Script" uid="uid://dqofyeiwhniuq" path="res://scenes/ship/ship.gd" id="1_wxx60"]
 [ext_resource type="PackedScene" uid="uid://bfkg2t7kaypb7" path="res://scenes/ship/bullet.tscn" id="2_iyjb8"]
 [ext_resource type="Texture2D" uid="uid://v25o10pmqpjd" path="res://assets/sprites/ship/ship1.tres" id="2_wxx60"]
+[ext_resource type="PackedScene" uid="uid://5sojfitc13yk" path="res://scenes/components/hurt box/hurt_box.tscn" id="3_c54or"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iyjb8"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_c54or"]
+radius = 12.0415945
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dh1m8"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_c54or"]
 animations = [{
@@ -30,8 +34,11 @@ animations = [{
 script = ExtResource("1_wxx60")
 bullet_scene = ExtResource("2_iyjb8")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=587001004]
-shape = SubResource("CapsuleShape2D_iyjb8")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=354640750]
+shape = SubResource("CircleShape2D_c54or")
+
+[node name="HurtBox" parent="." unique_id=839393848 instance=ExtResource("3_c54or")]
+shape = SubResource("CircleShape2D_dh1m8")
 
 [node name="ThrusterAnimation" type="AnimatedSprite2D" parent="." unique_id=1673155410]
 sprite_frames = SubResource("SpriteFrames_c54or")

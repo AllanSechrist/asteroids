@@ -16,14 +16,22 @@ enum ShipState { ALIVE, DEAD, INVULNERABLE }
 @export var bullet_scene: PackedScene
 
 @onready var muzzle: Marker2D = $Muzzle
-@onready var thruster_animation: AnimatedSprite2D = $ThrusterAnimation
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var thruster_animation: AnimatedSprite2D = $ThrusterAnimation
 @onready var invulnerability_timer: Timer = $InvulnerabilityTimer
+@onready var hurt_box: HurtBox = $HurtBox
 
 var state: ShipState = ShipState.ALIVE
 
 signal death
 
+func _ready() -> void:
+	hurt_box.hit.connect(_on_hurtbox_hit)
+	
+func _on_hurtbox_hit(area: Area2D) -> void:
+	if area.is_in_group("Asteroids"):
+		_on_hit()
+		print("hit!")
 
 func _physics_process(delta: float) -> void:
 	match state:
@@ -32,6 +40,7 @@ func _physics_process(delta: float) -> void:
 			move_and_slide()
 		ShipState.DEAD:
 			velocity = Vector2.ZERO
+	print(state)
 	wrap_screen()
 	
 func handle_input(delta: float) -> void:
@@ -52,11 +61,6 @@ func handle_input(delta: float) -> void:
 	if Input.is_action_just_pressed("fire"):
 		fire()
 	
-	if Input.is_action_just_pressed("clear_debug"):
-		var asteroids = get_tree().get_nodes_in_group("Asteroids")
-		for asteroid in asteroids:
-			asteroid.queue_free()
-	
 func fire() -> void:
 	var bullet = bullet_scene.instantiate()
 	bullet.global_position = muzzle.global_position
@@ -68,7 +72,6 @@ func _on_hit() -> void:
 		pass
 	state = ShipState.DEAD
 	velocity = Vector2.ZERO
-	collision_shape_2d.set_deferred("disabled", true)
 	death.emit()	
 	await get_tree().create_timer(respawn_time).timeout
 	_respawn()
@@ -76,7 +79,6 @@ func _on_hit() -> void:
 func _respawn() -> void:
 	global_position = get_viewport_rect().size / 2
 	rotation = 0
-	collision_shape_2d.set_deferred("disabled", false)
 	state = ShipState.INVULNERABLE
 	invulnerability_timer.start(invulernability_length)
 

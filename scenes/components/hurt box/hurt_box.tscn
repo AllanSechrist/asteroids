@@ -3,11 +3,13 @@
 [ext_resource type="Script" uid="uid://c1xur3xtaevky" path="res://scenes/components/hurt box/hurt_box.gd" id="1_8ujpl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ln8ty"]
+radius = 19.026299
 
 [node name="HurtBox" type="Area2D" unique_id=839393848]
 script = ExtResource("1_8ujpl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=446900129]
 shape = SubResource("CircleShape2D_ln8ty")
+debug_color = Color(0.9647059, 0, 0, 0.41960785)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -1,7 +1,7 @@
 extends Node2D
 class_name GameManager
 
-@export var starting_lives := 3
+@export var starting_lives := 4
 @export var starting_asteroids := 6
 
 

@@ -10,18 +10,10 @@
 
 [node name="Sandbox" type="Node2D" unique_id=1026063426]
 script = ExtResource("1_16ffl")
-starting_lives = null
-starting_asteroids = null
 
 [node name="Ship" parent="." unique_id=923968611 instance=ExtResource("1_2ddto")]
 position = Vector2(562, 294)
 motion_mode = 1
-turn_speed = null
-thrust_speed = null
-drag = null
-max_speed = null
-respawn_time = null
-invulnerable_time = null
 
 [node name="UI" parent="." unique_id=2099741367 instance=ExtResource("6_17a3a")]
 life_icon_scene = ExtResource("5_tpt06")
