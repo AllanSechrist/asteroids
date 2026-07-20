@@ -2,12 +2,14 @@
 
 [ext_resource type="Texture2D" uid="uid://bocdafis3khik" path="res://assets/sprites/ship/bullet.tres" id="1_3u5ev"]
 [ext_resource type="Script" uid="uid://kgcurpkyqbh1" path="res://scenes/ship/bullet.gd" id="1_gbfim"]
+[ext_resource type="PackedScene" uid="uid://cwujoinhee2wu" path="res://scenes/FX/bulletFX/bullet_fx.tscn" id="3_iitjm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gbfim"]
 radius = 6.0
 
 [node name="Bullet" type="Area2D" unique_id=1204786502]
 script = ExtResource("1_gbfim")
+bullet_fx_scene = ExtResource("3_iitjm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=748817624]
 shape = SubResource("CircleShape2D_gbfim")
@@ -19,4 +21,5 @@ texture = ExtResource("1_3u5ev")
 one_shot = true
 autostart = true
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="BulletTimer" to="." method="_on_bullet_timer_timeout"]

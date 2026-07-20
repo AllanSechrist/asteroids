@@ -43,7 +43,6 @@ func _physics_process(delta: float) -> void:
 			move_and_slide()
 		ShipState.DEAD:
 			velocity = Vector2.ZERO
-	print(state)
 	wrap_screen()
 	
 func handle_input(delta: float) -> void:

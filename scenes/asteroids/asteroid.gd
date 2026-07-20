@@ -61,5 +61,4 @@ func wrap_screen() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Bullet:
-		area.queue_free()
 		destroyed.emit(self)

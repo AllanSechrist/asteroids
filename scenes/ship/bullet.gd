@@ -3,9 +3,11 @@ class_name Bullet
 
 @export var bullet_speed := 400.0
 @export var bullet_lifetime := 1.5
+@export var bullet_fx_scene: PackedScene
 
 @onready var bullet_timer: Timer = $BulletTimer
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+
 
 var velocity := Vector2.ZERO
 
@@ -34,3 +36,12 @@ func wrap_screen() -> void:
 		position.y = screen_size.y + radius
 	elif position.y > screen_size.y + radius:
 		position.y = -radius
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("Asteroids"):
+		var fx = bullet_fx_scene.instantiate()
+		get_tree().current_scene.add_child(fx)
+		fx.global_position = global_position
+		fx.emitting = true
+		queue_free()
