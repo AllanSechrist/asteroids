@@ -20,6 +20,7 @@ enum ShipState { ALIVE, DEAD, INVULNERABLE }
 @onready var thruster_animation: AnimatedSprite2D = $ThrusterAnimation
 @onready var invulnerability_timer: Timer = $InvulnerabilityTimer
 @onready var hurt_box: HurtBox = $HurtBox
+@onready var death_particles: CPUParticles2D = $DeathParticles
 
 var state: ShipState = ShipState.ALIVE
 
@@ -27,6 +28,8 @@ signal death
 
 func _ready() -> void:
 	hurt_box.hit.connect(_on_hurtbox_hit)
+	death_particles.emitting = false
+	death_particles.one_shot = true
 	
 func _on_hurtbox_hit(area: Area2D) -> void:
 	if area.is_in_group("Asteroids"):
@@ -72,7 +75,9 @@ func _on_hit() -> void:
 		pass
 	state = ShipState.DEAD
 	velocity = Vector2.ZERO
-	death.emit()	
+	death.emit()
+	death_particles.emitting = true
+	thruster_animation.visible = false
 	await get_tree().create_timer(respawn_time).timeout
 	_respawn()
 	
@@ -80,6 +85,7 @@ func _respawn() -> void:
 	global_position = get_viewport_rect().size / 2
 	rotation = 0
 	state = ShipState.INVULNERABLE
+	thruster_animation.visible = true
 	invulnerability_timer.start(invulernability_length)
 
 func _on_invulnerability_timer_timeout() -> void:
