@@ -5,8 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://bfkg2t7kaypb7" path="res://scenes/ship/bullet.tscn" id="2_iyjb8"]
 [ext_resource type="Texture2D" uid="uid://v25o10pmqpjd" path="res://assets/sprites/ship/ship1.tres" id="2_wxx60"]
 [ext_resource type="PackedScene" uid="uid://5sojfitc13yk" path="res://scenes/components/hurt box/hurt_box.tscn" id="3_c54or"]
+[ext_resource type="AudioStream" uid="uid://ctbfbstlefdxk" path="res://assets/sounds/ship/death.ogg" id="4_gkhk1"]
 [ext_resource type="PackedScene" uid="uid://bnlpj8hxysptn" path="res://scenes/FX/deathFX/death particles/death_particles.tscn" id="6_dh1m8"]
-[ext_resource type="AudioStream" uid="uid://dw68mplpq6gvy" path="res://assets/sounds/bullets/laser.wav" id="7_7nsyl"]
+[ext_resource type="AudioStream" uid="uid://rrmlvwn6elo5" path="res://assets/sounds/bullets/laserSmall_001.ogg" id="7_7nsyl"]
+[ext_resource type="AudioStream" uid="uid://bkw458obqo362" path="res://assets/sounds/ship/thrusterFire_001.ogg" id="8_0s5ox"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c54or"]
 radius = 12.0415945
@@ -35,6 +37,8 @@ animations = [{
 [node name="Ship" type="CharacterBody2D" unique_id=923968611]
 script = ExtResource("1_wxx60")
 bullet_scene = ExtResource("2_iyjb8")
+gun_sound = ExtResource("7_7nsyl")
+death_sound = ExtResource("4_gkhk1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=354640750]
 shape = SubResource("CircleShape2D_c54or")
@@ -53,7 +57,7 @@ position = Vector2(40, -2)
 
 [node name="DeathParticles" parent="." unique_id=1889882341 instance=ExtResource("6_dh1m8")]
 
-[node name="GunSoundEffects" type="AudioStreamPlayer2D" parent="." unique_id=2016259147]
-stream = ExtResource("7_7nsyl")
+[node name="ThrusterSoundEffects" type="AudioStreamPlayer2D" parent="." unique_id=548504246]
+stream = ExtResource("8_0s5ox")
 
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]

@@ -13,8 +13,10 @@ enum ShipState { ALIVE, DEAD, INVULNERABLE }
 @export var max_bullets := 4
 
 
-@export_category("Child Scenes")
+@export_category("Misc")
 @export var bullet_scene: PackedScene
+@export var gun_sound: AudioStream
+@export var death_sound: AudioStream
 
 @onready var muzzle: Marker2D = $Muzzle
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
@@ -22,7 +24,7 @@ enum ShipState { ALIVE, DEAD, INVULNERABLE }
 @onready var invulnerability_timer: Timer = $InvulnerabilityTimer
 @onready var hurt_box: HurtBox = $HurtBox
 @onready var death_particles: CPUParticles2D = $DeathParticles
-@onready var gun_sound_effects: AudioStreamPlayer2D = $GunSoundEffects
+@onready var thruster_sound_effects: AudioStreamPlayer2D = $ThrusterSoundEffects
 
 var state: ShipState = ShipState.ALIVE
 var active_bullets := 0
@@ -59,8 +61,11 @@ func handle_input(delta: float) -> void:
 		velocity += forward_direction * thrust_speed * delta
 		velocity = velocity.limit_length(max_speed)
 		thruster_animation.play("Thrust")
+		if !thruster_sound_effects.is_playing():
+			thruster_sound_effects.play()
 	else:
 		thruster_animation.play("Idle")
+		thruster_sound_effects.stop()
 	position += velocity * delta
 	
 	if Input.is_action_pressed("turn_left"):
@@ -74,7 +79,7 @@ func handle_input(delta: float) -> void:
 	
 func fire() -> void:
 	if active_bullets < max_bullets:
-		gun_sound_effects.play()
+		SoundManager.play(gun_sound)
 		var bullet = bullet_scene.instantiate()
 		bullet.destroyed.connect(_on_bullet_destroyed)
 		bullet.global_position = muzzle.global_position
@@ -85,7 +90,9 @@ func fire() -> void:
 	
 func _on_hit() -> void:
 	if state != ShipState.ALIVE:
-		pass
+		return
+	SoundManager.play(death_sound)
+	thruster_sound_effects.stop()
 	state = ShipState.DEAD
 	velocity = Vector2.ZERO
 	death.emit()

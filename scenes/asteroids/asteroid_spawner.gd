@@ -3,6 +3,9 @@ class_name AsteroidSpawner
 
 @export var asteroid_scene: PackedScene
 
+@export_category("SFX")
+@export var death_sound: AudioStream
+
 var asteroids: int
 
 signal all_asteroids_destroyed
@@ -40,6 +43,7 @@ func _on_asteroid_destroyed(asteroid: Area2D) -> void:
 	
 	asteroid.remove_from_group("Asteroids")
 	asteroid.queue_free()
+	SoundManager.play(death_sound)
 	asteroids -= 1
 	print(asteroids)
 	if asteroids == 0:
