@@ -22,9 +22,11 @@ enum ShipState { ALIVE, DEAD, INVULNERABLE }
 @onready var invulnerability_timer: Timer = $InvulnerabilityTimer
 @onready var hurt_box: HurtBox = $HurtBox
 @onready var death_particles: CPUParticles2D = $DeathParticles
+@onready var gun_sound_effects: AudioStreamPlayer2D = $GunSoundEffects
 
 var state: ShipState = ShipState.ALIVE
 var active_bullets := 0
+var want_to_fire := false
 
 signal death
 
@@ -32,6 +34,10 @@ func _ready() -> void:
 	hurt_box.hit.connect(_on_hurtbox_hit)
 	death_particles.emitting = false
 	death_particles.one_shot = true
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("fire"):
+		want_to_fire = true
 	
 func _on_hurtbox_hit(area: Area2D) -> void:
 	if area.is_in_group("Asteroids"):
@@ -62,17 +68,20 @@ func handle_input(delta: float) -> void:
 	if Input.is_action_pressed("turn_right"):
 		rotate(turn_speed * delta)
 		
-	if Input.is_action_just_pressed("fire"):
+	if want_to_fire:
+		want_to_fire = false
 		fire()
 	
 func fire() -> void:
 	if active_bullets < max_bullets:
+		gun_sound_effects.play()
 		var bullet = bullet_scene.instantiate()
 		bullet.destroyed.connect(_on_bullet_destroyed)
 		bullet.global_position = muzzle.global_position
 		bullet.global_rotation = global_rotation
 		get_tree().current_scene.add_child(bullet)
 		active_bullets += 1
+		
 	
 func _on_hit() -> void:
 	if state != ShipState.ALIVE:

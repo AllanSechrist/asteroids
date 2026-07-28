@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://v25o10pmqpjd" path="res://assets/sprites/ship/ship1.tres" id="2_wxx60"]
 [ext_resource type="PackedScene" uid="uid://5sojfitc13yk" path="res://scenes/components/hurt box/hurt_box.tscn" id="3_c54or"]
 [ext_resource type="PackedScene" uid="uid://bnlpj8hxysptn" path="res://scenes/FX/deathFX/death particles/death_particles.tscn" id="6_dh1m8"]
+[ext_resource type="AudioStream" uid="uid://dw68mplpq6gvy" path="res://assets/sounds/bullets/laser.wav" id="7_7nsyl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c54or"]
 radius = 12.0415945
@@ -51,5 +52,8 @@ position = Vector2(40, -2)
 [node name="InvulnerabilityTimer" type="Timer" parent="." unique_id=1440516381]
 
 [node name="DeathParticles" parent="." unique_id=1889882341 instance=ExtResource("6_dh1m8")]
+
+[node name="GunSoundEffects" type="AudioStreamPlayer2D" parent="." unique_id=2016259147]
+stream = ExtResource("7_7nsyl")
 
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]
