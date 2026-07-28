@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://blul3ucnbaqve" path="res://scenes/FX/bulletFX/bullet_fx.gd" id="1_22ama"]
 
 [node name="BulletFX" type="CPUParticles2D" unique_id=392035635]
+modulate = Color(0.9388745, 0.9388743, 1.540184e-06, 1)
 emitting = false
 amount = 3
 lifetime = 0.2

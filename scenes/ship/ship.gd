@@ -10,6 +10,7 @@ enum ShipState { ALIVE, DEAD, INVULNERABLE }
 @export var max_speed := 300.0
 @export var respawn_time := 1.0
 @export var invulernability_length := 2.0
+@export var max_bullets := 4
 
 
 @export_category("Child Scenes")
@@ -23,6 +24,7 @@ enum ShipState { ALIVE, DEAD, INVULNERABLE }
 @onready var death_particles: CPUParticles2D = $DeathParticles
 
 var state: ShipState = ShipState.ALIVE
+var active_bullets := 0
 
 signal death
 
@@ -64,10 +66,13 @@ func handle_input(delta: float) -> void:
 		fire()
 	
 func fire() -> void:
-	var bullet = bullet_scene.instantiate()
-	bullet.global_position = muzzle.global_position
-	bullet.global_rotation = global_rotation
-	get_tree().current_scene.add_child(bullet)
+	if active_bullets < max_bullets:
+		var bullet = bullet_scene.instantiate()
+		bullet.destroyed.connect(_on_bullet_destroyed)
+		bullet.global_position = muzzle.global_position
+		bullet.global_rotation = global_rotation
+		get_tree().current_scene.add_child(bullet)
+		active_bullets += 1
 	
 func _on_hit() -> void:
 	if state != ShipState.ALIVE:
@@ -89,6 +94,11 @@ func _respawn() -> void:
 
 func _on_invulnerability_timer_timeout() -> void:
 	state = ShipState.ALIVE
+	
+func _on_bullet_destroyed() -> void:
+	active_bullets -= 1
+	if active_bullets < 0:
+		active_bullets = 0
 	
 func wrap_screen() -> void:
 	var screen_size = get_viewport_rect().size
