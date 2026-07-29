@@ -6,7 +6,7 @@ enum Size { BIG, MEDIUM, SMALL }
 @export_category("Asteroid Stats")
 @export var size: Size = Size.BIG
 @export var sprite_variants: Array[Texture2D] = []
-@export var speed: float = 100.0
+#@export var speed: float
 @export var rotation_speed: float = 1.0
 @export var asteroid_chunks := 2
 
@@ -17,6 +17,8 @@ enum Size { BIG, MEDIUM, SMALL }
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 var velocity: Vector2 = Vector2.ZERO
+var speed: float
+var speed_multiplier := 1.0
 
 const STATS := {
 	Size.BIG: { speed = 60.0, points = 20 },
@@ -29,7 +31,7 @@ signal destroyed(asteroid: Area2D)
 func _ready() -> void:
 	add_to_group("Asteroids")
 	var stats = STATS[size]
-	speed = stats.speed
+	speed = stats.speed * speed_multiplier
 	if sprite_variants.size() > 0:
 		sprite_2d.texture = sprite_variants.pick_random()
 	sprite_2d.flip_h = randi() % 2 == 0 # randomly flips sprite.
@@ -61,4 +63,5 @@ func wrap_screen() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Bullet:
+		print(speed)
 		destroyed.emit(self)

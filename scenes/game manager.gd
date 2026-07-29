@@ -16,6 +16,8 @@ var current_level := 1
 var max_asteroids = 10
 var asteroids: int
 
+#LEVEL CHANGE
+signal level_changed(new_level: int)
 #UI
 signal score_changed(new_score: int)
 signal lives_changed(new_lives: int)
@@ -36,10 +38,11 @@ func _on_score_change(points: int) -> void:
 	
 func _on_all_asteroids_destoryed() -> void:
 	current_level += 1
+	level_changed.emit(current_level)
 	starting_asteroids = clampi(starting_asteroids + 2, 0, 10)
 	asteroid_spawner.spawn_asteroids(starting_asteroids)
-	var clear_message = "Level %d cleared!" % (current_level - 1)
-	print(clear_message)
+	#var clear_message = "Level %d cleared!" % (current_level - 1)
+	#print(clear_message)
 	
 func _on_ship_death() -> void:
 	lives -= 1

@@ -10,6 +10,7 @@
 
 [node name="Sandbox" type="Node2D" unique_id=1026063426]
 script = ExtResource("1_16ffl")
+starting_asteroids = 1
 
 [node name="Ship" parent="." unique_id=923968611 instance=ExtResource("1_2ddto")]
 position = Vector2(562, 294)
@@ -20,5 +21,6 @@ life_icon_scene = ExtResource("5_tpt06")
 
 [node name="AsteroidSpawner" parent="." unique_id=686080092 instance=ExtResource("5_16ffl")]
 asteroid_scene = ExtResource("2_rgld7")
+level_speed_increase = 0.1
 
 [node name="RespawnPoint" parent="." unique_id=851458566 instance=ExtResource("7_17a3a")]

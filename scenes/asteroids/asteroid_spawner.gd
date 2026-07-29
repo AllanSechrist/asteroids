@@ -2,22 +2,33 @@ extends Node2D
 class_name AsteroidSpawner
 
 @export var asteroid_scene: PackedScene
+@export var level_speed_increase := 0.05
+@export var max_speed_level := 10
 
 @export_category("SFX")
 @export var death_sound: AudioStream
 
 var asteroids: int
+var current_level := 1
 
 signal all_asteroids_destroyed
 signal asteroid_score(score: int)
+
+func _ready() -> void:
+	get_parent().level_changed.connect(_on_level_changed)
 
 func spawn_asteroids(amount: int) -> void:
 	for i in amount:
 		var asteroid := asteroid_scene.instantiate()
 		asteroid.global_position = get_random_edge_position()
+		asteroid.speed_multiplier = get_speed_multiplier(current_level)
 		asteroid.destroyed.connect(_on_asteroid_destroyed)
 		add_child.call_deferred(asteroid)
 		asteroids += 1
+		
+func get_speed_multiplier(level: int) -> float:
+	var effective_level = mini(level, max_speed_level)
+	return pow(1.0 + level_speed_increase, effective_level - 1)
 		
 func get_random_edge_position() -> Vector2:
 	var screen_size := get_viewport_rect().size
@@ -37,6 +48,7 @@ func _on_asteroid_destroyed(asteroid: Area2D) -> void:
 			var chunk = asteroid.asteroid_scene.instantiate()
 			chunk.size = asteroid.size + 1
 			chunk.global_position = asteroid.global_position
+			chunk.speed_multiplier = get_speed_multiplier(current_level)
 			chunk.destroyed.connect(_on_asteroid_destroyed)
 			add_child.call_deferred(chunk)
 			asteroids += 1
@@ -48,3 +60,8 @@ func _on_asteroid_destroyed(asteroid: Area2D) -> void:
 	print(asteroids)
 	if asteroids == 0:
 		all_asteroids_destroyed.emit()
+		
+func _on_level_changed(new_level: int) -> void:
+	current_level = new_level
+	print("Next level")
+	print(current_level)
