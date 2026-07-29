@@ -8,6 +8,7 @@ class_name MenuBase
 
 
 func _ready() -> void:
+	MusicManager.play(preload("res://assets/sounds/music/ObservingTheStar.ogg"))
 	if GameState.last_score > 0:
 		setup("GAME OVER", GameState.last_score)
 	else:

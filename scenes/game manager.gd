@@ -29,6 +29,7 @@ func _ready () -> void:
 	asteroid_spawner.asteroid_score.connect(_on_score_change)
 	asteroid_spawner.spawn_asteroids(starting_asteroids)
 	
+	
 func _on_score_change(points: int) -> void:
 	score += points
 	score_changed.emit(score)
