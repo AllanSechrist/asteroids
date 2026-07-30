@@ -14,9 +14,6 @@ var current_level := 1
 signal all_asteroids_destroyed
 signal asteroid_score(score: int)
 
-func _ready() -> void:
-	get_parent().level_changed.connect(_on_level_changed)
-
 func spawn_asteroids(amount: int) -> void:
 	for i in amount:
 		var asteroid := asteroid_scene.instantiate()

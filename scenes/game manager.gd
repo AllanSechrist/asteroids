@@ -1,13 +1,14 @@
-extends Node2D
+extends Node
 class_name GameManager
 
 @export var starting_lives := 4
 @export var starting_asteroids := 6
+@export var spawn_buffer := 1.0
 
 
 @onready var ship: Ship = $Ship
-@onready var asteroid_spawner: AsteroidSpawner = $AsteroidSpawner
 @onready var respawn_point: RespawnPoint = $RespawnPoint
+
 
 var lives: int
 var score := 0
@@ -18,19 +19,18 @@ var asteroids: int
 
 #LEVEL CHANGE
 signal level_changed(new_level: int)
+#SPAWN
+signal spawn_wave_requested(amount: int)
 #UI
 signal score_changed(new_score: int)
 signal lives_changed(new_lives: int)
-# GAME OVER
-signal game_over
 
 func _ready () -> void:
 	lives = starting_lives
 	ship.death.connect(_on_ship_death)
-	asteroid_spawner.all_asteroids_destroyed.connect(_on_all_asteroids_destoryed)
-	asteroid_spawner.asteroid_score.connect(_on_score_change)
-	asteroid_spawner.spawn_asteroids(starting_asteroids)
 	
+func start_game() -> void:
+	spawn_wave_requested.emit(starting_asteroids)
 	
 func _on_score_change(points: int) -> void:
 	score += points
@@ -40,9 +40,8 @@ func _on_all_asteroids_destoryed() -> void:
 	current_level += 1
 	level_changed.emit(current_level)
 	starting_asteroids = clampi(starting_asteroids + 2, 0, 10)
-	asteroid_spawner.spawn_asteroids(starting_asteroids)
-	#var clear_message = "Level %d cleared!" % (current_level - 1)
-	#print(clear_message)
+	await get_tree().create_timer(spawn_buffer).timeout
+	spawn_wave_requested.emit(starting_asteroids)
 	
 func _on_ship_death() -> void:
 	lives -= 1

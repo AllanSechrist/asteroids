@@ -12,7 +12,6 @@ func _ready() -> void:
 	var game_manager := get_parent() as GameManager
 	game_manager.score_changed.connect(_on_score_changed)
 	game_manager.lives_changed.connect(_on_lives_changed)
-	game_manager.game_over.connect(_on_game_over)
 	
 	# Set labels based on game manager data
 	_on_score_changed(game_manager.score)
@@ -28,5 +27,3 @@ func _on_lives_changed(new_lives: int) -> void:
 		var icon = life_icon_scene.instantiate()
 		lives_container.add_child.call_deferred(icon)
 	
-func _on_game_over() -> void:
-	pass
