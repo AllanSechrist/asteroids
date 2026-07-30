@@ -25,6 +25,7 @@ enum ShipState { ALIVE, DEAD, INVULNERABLE }
 @onready var hurt_box: HurtBox = $HurtBox
 @onready var death_particles: CPUParticles2D = $DeathParticles
 @onready var thruster_sound_effects: AudioStreamPlayer2D = $ThrusterSoundEffects
+@onready var invulnerability_animation: AnimationPlayer = $InvulnerabilityAnimation
 
 var state: ShipState = ShipState.ALIVE
 var active_bullets := 0
@@ -106,10 +107,13 @@ func _respawn() -> void:
 	rotation = 0
 	state = ShipState.INVULNERABLE
 	thruster_animation.visible = true
+	invulnerability_animation.play("blink")
 	invulnerability_timer.start(invulernability_length)
+	
 
 func _on_invulnerability_timer_timeout() -> void:
 	state = ShipState.ALIVE
+	invulnerability_animation.stop()
 	
 func _on_bullet_destroyed() -> void:
 	active_bullets -= 1
