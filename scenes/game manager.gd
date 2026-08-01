@@ -7,8 +7,6 @@ class_name GameManager
 
 
 @onready var ship: Ship = $Ship
-@onready var respawn_point: RespawnPoint = $RespawnPoint
-
 
 var lives: int
 var score := 0
@@ -46,8 +44,6 @@ func _on_all_asteroids_destoryed() -> void:
 func _on_ship_death() -> void:
 	lives -= 1
 	lives_changed.emit(lives)
-	#await get_tree().create_timer(respawn_time).timeout
-	#ship.global_position = respawn_point.global_position
 	if lives <= 0:
 		GameState.last_score = score
 		await get_tree().create_timer(1.0).timeout

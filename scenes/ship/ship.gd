@@ -25,6 +25,7 @@ enum ShipState { ALIVE, DEAD, INVULNERABLE }
 @onready var hurt_box: HurtBox = $HurtBox
 @onready var death_particles: CPUParticles2D = $DeathParticles
 @onready var thruster_sound_effects: AudioStreamPlayer2D = $ThrusterSoundEffects
+@onready var thruster_fx: CPUParticles2D = $ThrusterFX
 @onready var invulnerability_animation: AnimationPlayer = $InvulnerabilityAnimation
 
 var state: ShipState = ShipState.ALIVE
@@ -35,6 +36,8 @@ signal death
 
 func _ready() -> void:
 	hurt_box.hit.connect(_on_hurtbox_hit)
+	global_position = get_viewport_rect().size / 2
+	thruster_fx.emitting = false
 	death_particles.emitting = false
 	death_particles.one_shot = true
 	
@@ -61,11 +64,11 @@ func handle_input(delta: float) -> void:
 		var forward_direction = Vector2.RIGHT.rotated(rotation)
 		velocity += forward_direction * thrust_speed * delta
 		velocity = velocity.limit_length(max_speed)
-		thruster_animation.play("Thrust")
+		thruster_fx.emitting = true
 		if !thruster_sound_effects.is_playing():
 			thruster_sound_effects.play()
 	else:
-		thruster_animation.play("Idle")
+		thruster_fx.emitting = false
 		thruster_sound_effects.stop()
 	position += velocity * delta
 	
@@ -97,6 +100,7 @@ func _on_hit() -> void:
 	state = ShipState.DEAD
 	velocity = Vector2.ZERO
 	death.emit()
+	thruster_fx.emitting = false
 	death_particles.emitting = true
 	thruster_animation.visible = false
 	await get_tree().create_timer(respawn_time).timeout
