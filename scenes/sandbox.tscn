@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://d3x0fnkj3jumk" path="res://scenes/asteroids/big_asteroid.tscn" id="2_rgld7"]
 [ext_resource type="PackedScene" uid="uid://bcs1gloubrt3x" path="res://scenes/asteroids/asteroid_spawner.tscn" id="5_16ffl"]
 [ext_resource type="PackedScene" uid="uid://8eholi4ay2oe" path="res://scenes/UI/lives_icon.tscn" id="5_tpt06"]
+[ext_resource type="AudioStream" uid="uid://cdbj3yiaxfodo" path="res://assets/sounds/ship/teleport.wav" id="6_4b02c"]
 [ext_resource type="PackedScene" uid="uid://dqpenmioq0la4" path="res://scenes/UI/ui.tscn" id="6_17a3a"]
 [ext_resource type="PackedScene" uid="uid://dcacstden4rpd" path="res://scenes/managers/game_manager.tscn" id="7_4b02c"]
 
@@ -22,6 +23,7 @@ spawn_buffer = 1.5
 [node name="Ship" parent="GameManager" unique_id=923968611 instance=ExtResource("1_2ddto")]
 position = Vector2(562, 294)
 motion_mode = 1
+hyperspace_sound = ExtResource("6_4b02c")
 
 [node name="UI" parent="GameManager" unique_id=2099741367 instance=ExtResource("6_17a3a")]
 life_icon_scene = ExtResource("5_tpt06")

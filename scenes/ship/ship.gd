@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Ship
 
-enum ShipState { ALIVE, DEAD, INVULNERABLE }
+enum ShipState { ALIVE, DEAD, INVULNERABLE, HYPERSPACING }
 
 @export_category("Ship Stats")
 @export var turn_speed := 5.0
@@ -17,6 +17,7 @@ enum ShipState { ALIVE, DEAD, INVULNERABLE }
 @export var bullet_scene: PackedScene
 @export var gun_sound: AudioStream
 @export var death_sound: AudioStream
+@export var hyperspace_sound: AudioStream
 
 @onready var muzzle: Marker2D = $Muzzle
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
@@ -31,6 +32,7 @@ enum ShipState { ALIVE, DEAD, INVULNERABLE }
 var state: ShipState = ShipState.ALIVE
 var active_bullets := 0
 var want_to_fire := false
+var is_hyperspacing := false
 
 signal death
 
@@ -56,7 +58,7 @@ func _physics_process(delta: float) -> void:
 			handle_input(delta)
 			move_and_slide()
 		ShipState.DEAD:
-			velocity = Vector2.ZERO
+			velocity = Vector2.ZERO		
 	wrap_screen()
 	
 func handle_input(delta: float) -> void:
@@ -80,6 +82,33 @@ func handle_input(delta: float) -> void:
 	if want_to_fire:
 		want_to_fire = false
 		fire()
+		
+	if Input.is_action_just_pressed("hyperspace") and state != ShipState.HYPERSPACING:
+		hyperspace_jump()
+		
+func hyperspace_jump() -> void:
+	SoundManager.play(hyperspace_sound)
+	state = ShipState.HYPERSPACING
+	visible = false
+	collision_shape_2d.disabled = true
+	
+	#TODO: effects
+	
+	await get_tree().create_timer(0.5).timeout
+	
+	var screen_rect := get_viewport_rect()
+	var margin := 50.0
+	global_position = Vector2(
+		randf_range(margin, screen_rect.size.x - margin),
+		randf_range(margin, screen_rect.size.y - margin)
+	)
+	velocity = Vector2.ZERO
+	
+	visible = true
+	collision_shape_2d.disabled = false
+	state = ShipState.ALIVE
+	
+	#TODO: effects
 	
 func fire() -> void:
 	if active_bullets < max_bullets:
