@@ -10,8 +10,6 @@ class_name GameManager
 
 var lives: int
 var score := 0
-var high_score := 1000
-#var current_level := 1
 var max_asteroids = 10
 var asteroids: int
 
@@ -46,5 +44,6 @@ func _on_ship_death() -> void:
 	lives_changed.emit(lives)
 	if lives <= 0:
 		GameState.last_score = score
+		GameState.try_update_high_score(score)
 		await get_tree().create_timer(1.0).timeout
 		get_tree().change_scene_to_file.call_deferred("res://scenes/UI/menu_base.tscn")

@@ -16,6 +16,7 @@ func _ready() -> void:
 	# Set labels based on game manager data
 	_on_score_changed(game_manager.score)
 	_on_lives_changed(game_manager.starting_lives)
+	high_label.text = "HIGH SCORE: %d" % GameState.high_score
 	
 func _on_score_changed(new_score: int) -> void:
 	score_label.text = "SCORE: %d" % new_score
