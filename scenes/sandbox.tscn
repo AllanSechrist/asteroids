@@ -3,11 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://cqk7p0e26gfk1" path="res://scenes/ship/ship.tscn" id="1_2ddto"]
 [ext_resource type="Script" uid="uid://ck4agfhdcfuqs" path="res://scenes/main.gd" id="1_4b02c"]
 [ext_resource type="PackedScene" uid="uid://d3x0fnkj3jumk" path="res://scenes/asteroids/big_asteroid.tscn" id="2_rgld7"]
+[ext_resource type="PackedScene" uid="uid://dljt63orfj1eu" path="res://scenes/ufo/ufo_manager.tscn" id="4_m5lhb"]
 [ext_resource type="PackedScene" uid="uid://bcs1gloubrt3x" path="res://scenes/asteroids/asteroid_spawner.tscn" id="5_16ffl"]
 [ext_resource type="PackedScene" uid="uid://8eholi4ay2oe" path="res://scenes/UI/lives_icon.tscn" id="5_tpt06"]
 [ext_resource type="AudioStream" uid="uid://cdbj3yiaxfodo" path="res://assets/sounds/ship/teleport.wav" id="6_4b02c"]
 [ext_resource type="PackedScene" uid="uid://dqpenmioq0la4" path="res://scenes/UI/ui.tscn" id="6_17a3a"]
 [ext_resource type="PackedScene" uid="uid://dcacstden4rpd" path="res://scenes/managers/game_manager.tscn" id="7_4b02c"]
+[ext_resource type="PackedScene" uid="uid://b0rcinsbc7kb" path="res://scenes/ufo/ufo.tscn" id="9_rvfw7"]
 
 [node name="Sandbox" type="Node2D" unique_id=1026063426]
 script = ExtResource("1_4b02c")
@@ -16,13 +18,15 @@ script = ExtResource("1_4b02c")
 asteroid_scene = ExtResource("2_rgld7")
 level_speed_increase = 0.1
 
+[node name="UFOManager" parent="." unique_id=1661213933 instance=ExtResource("4_m5lhb")]
+ufo_scene = ExtResource("9_rvfw7")
+
 [node name="GameManager" parent="." unique_id=1979672769 instance=ExtResource("7_4b02c")]
 starting_asteroids = 1
 spawn_buffer = 1.5
 
 [node name="Ship" parent="GameManager" unique_id=923968611 instance=ExtResource("1_2ddto")]
 position = Vector2(562, 294)
-motion_mode = 1
 hyperspace_sound = ExtResource("6_4b02c")
 
 [node name="UI" parent="GameManager" unique_id=2099741367 instance=ExtResource("6_17a3a")]

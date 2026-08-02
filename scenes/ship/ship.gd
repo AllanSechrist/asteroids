@@ -42,15 +42,15 @@ func _ready() -> void:
 	thruster_fx.emitting = false
 	death_particles.emitting = false
 	death_particles.one_shot = true
+	add_to_group("player")
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("fire"):
 		want_to_fire = true
 	
-func _on_hurtbox_hit(area: Area2D) -> void:
-	if area.is_in_group("Asteroids"):
-		_on_hit()
-		print("hit!")
+func _on_hurtbox_hit(_area: Area2D) -> void:
+	_on_hit()
+	print("hit!")
 
 func _physics_process(delta: float) -> void:
 	match state:
@@ -58,7 +58,7 @@ func _physics_process(delta: float) -> void:
 			handle_input(delta)
 			move_and_slide()
 		ShipState.DEAD:
-			velocity = Vector2.ZERO		
+			velocity = Vector2.ZERO
 	wrap_screen()
 	
 func handle_input(delta: float) -> void:

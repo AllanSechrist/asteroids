@@ -61,7 +61,5 @@ func wrap_screen() -> void:
 		position.y = -radius
 
 
-func _on_area_entered(area: Area2D) -> void:
-	if area is Bullet:
-		print(speed)
-		destroyed.emit(self)
+func _on_area_entered(_area: Area2D) -> void:
+	destroyed.emit(self)

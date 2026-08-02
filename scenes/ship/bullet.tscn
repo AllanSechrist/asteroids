@@ -8,6 +8,8 @@
 radius = 6.0
 
 [node name="Bullet" type="Area2D" unique_id=1204786502]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_gbfim")
 bullet_fx_scene = ExtResource("3_iitjm")
 

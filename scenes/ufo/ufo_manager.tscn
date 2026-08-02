@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dljt63orfj1eu"]
+
+[ext_resource type="Script" uid="uid://c5up3t1lp5mjy" path="res://scenes/ufo/UFOManager.gd" id="1_dclye"]
+
+[node name="UFOManager" type="Node" unique_id=1661213933]
+script = ExtResource("1_dclye")
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=1543103457]
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

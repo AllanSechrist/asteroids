@@ -11,7 +11,7 @@ class_name GameManager
 var lives: int
 var score := 0
 var high_score := 1000
-var current_level := 1
+#var current_level := 1
 var max_asteroids = 10
 var asteroids: int
 
@@ -35,8 +35,8 @@ func _on_score_change(points: int) -> void:
 	score_changed.emit(score)
 	
 func _on_all_asteroids_destoryed() -> void:
-	current_level += 1
-	level_changed.emit(current_level)
+	GameState.current_level += 1
+	level_changed.emit(GameState.current_level)
 	starting_asteroids = clampi(starting_asteroids + 2, 0, 10)
 	await get_tree().create_timer(spawn_buffer).timeout
 	spawn_wave_requested.emit(starting_asteroids)

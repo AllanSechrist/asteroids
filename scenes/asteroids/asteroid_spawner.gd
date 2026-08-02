@@ -54,7 +54,6 @@ func _on_asteroid_destroyed(asteroid: Area2D) -> void:
 	asteroid.queue_free()
 	SoundManager.play(death_sound)
 	asteroids -= 1
-	print(asteroids)
 	if asteroids == 0:
 		all_asteroids_destroyed.emit()
 		

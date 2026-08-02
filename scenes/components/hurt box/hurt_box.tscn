@@ -6,6 +6,7 @@
 radius = 19.026299
 
 [node name="HurtBox" type="Area2D" unique_id=839393848]
+collision_mask = 0
 script = ExtResource("1_8ujpl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=446900129]

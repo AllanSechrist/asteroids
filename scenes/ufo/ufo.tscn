@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://b0rcinsbc7kb"]
+
+[ext_resource type="Script" uid="uid://o01us4tn2tfo" path="res://scenes/ufo/ufo.gd" id="1_aqm62"]
+[ext_resource type="Texture2D" uid="uid://c6l0rnw2qee7f" path="res://assets/sprites/ufo/ufo.tres" id="1_bcm52"]
+[ext_resource type="PackedScene" uid="uid://bnlpj8hxysptn" path="res://scenes/FX/deathFX/death particles/death_particles.tscn" id="2_4t1i8"]
+[ext_resource type="AudioStream" uid="uid://ctbfbstlefdxk" path="res://assets/sounds/ship/death.ogg" id="3_4nenq"]
+[ext_resource type="PackedScene" uid="uid://bfkg2t7kaypb7" path="res://scenes/ship/bullet.tscn" id="4_4u7g4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aqm62"]
+radius = 25.5196
+
+[node name="UFO" type="Area2D" unique_id=2142615309]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("1_aqm62")
+death_fx = ExtResource("2_4t1i8")
+death_sound = ExtResource("3_4nenq")
+bullet_scene = ExtResource("4_4u7g4")
+
+[node name="UFOSprite" type="Sprite2D" parent="." unique_id=1440426035]
+texture = ExtResource("1_bcm52")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1477484605]
+position = Vector2(1.5, -2)
+shape = SubResource("CircleShape2D_aqm62")
+
+[node name="MovementTimer" type="Timer" parent="." unique_id=1996760406]
+
+[node name="DespawnTimer" type="Timer" parent="." unique_id=876626467]
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=215327350]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="MovementTimer" to="." method="_on_movement_timer_timeout"]
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

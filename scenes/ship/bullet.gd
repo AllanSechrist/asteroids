@@ -1,9 +1,12 @@
 extends Area2D
 class_name Bullet
 
+enum Source { PLAYER, ENEMY }
+
 @export var bullet_speed := 800.0
 @export var bullet_lifetime := 1.5
 @export var bullet_fx_scene: PackedScene
+@export var source := Source.PLAYER
 
 @onready var bullet_timer: Timer = $BulletTimer
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
@@ -14,12 +17,22 @@ var fx: CPUParticles2D
 signal destroyed
 
 func _ready() -> void:
+	match source:
+		Source.PLAYER:
+			set_collision_layer_value(4, true) # player bullet
+			set_collision_mask_value(2, true) # Asteroid
+			set_collision_mask_value(3, true) # UFO
+		Source.ENEMY:
+			set_collision_layer_value(5, true) # Enemy Bullet
+			set_collision_mask_value(1, true) # Player
+			bullet_speed = 500.0
+	
 	fx = bullet_fx_scene.instantiate()
 	get_tree().current_scene.add_child(fx)
 	bullet_timer.wait_time = bullet_lifetime
 	bullet_timer.start()
 	velocity = Vector2.RIGHT.rotated(rotation) * bullet_speed
-	
+
 func _physics_process(delta: float) -> void:
 	position += velocity * delta
 	wrap_screen()
@@ -43,9 +56,8 @@ func wrap_screen() -> void:
 		position.y = -radius
 
 
-func _on_area_entered(area: Area2D) -> void:
-	if area is Asteroid:
-		fx.global_position = global_position
-		fx.emitting = true
-		destroyed.emit()
-		queue_free()
+func _on_area_entered(_area: Area2D) -> void:
+	fx.global_position = global_position
+	fx.emitting = true
+	destroyed.emit()
+	queue_free()

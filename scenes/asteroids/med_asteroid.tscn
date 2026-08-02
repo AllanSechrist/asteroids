@@ -10,6 +10,8 @@
 radius = 27.073973
 
 [node name="MedAsteroid" type="Area2D" unique_id=1836129986]
+collision_layer = 2
+collision_mask = 8
 script = ExtResource("1_l8wfa")
 sprite_variants = Array[Texture2D]([ExtResource("2_k7t6i"), ExtResource("3_rr77u"), ExtResource("4_jdo40")])
 asteroid_scene = ExtResource("5_rr77u")
