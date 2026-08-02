@@ -9,6 +9,7 @@ enum Size { BIG, SMALL }
 @export_category("Effects")
 @export var death_fx: PackedScene
 @export var death_sound: AudioStream
+@export var gun_sound: AudioStream
 @export_category("Scenes")
 @export var bullet_scene: PackedScene
 
@@ -74,10 +75,7 @@ func spawn_death_effects() -> void:
 
 func _on_area_entered(_area: Area2D) -> void:
 	die()
-		
-func _on_body_entered(_body: Node2D) -> void:
-	die()
-		
+	
 func die() -> void:
 	spawn_death_effects()
 	destroyed.emit(STATS[size].points)
@@ -99,7 +97,7 @@ func shoot() -> void:
 	var direction = (player.global_position - global_position).normalized()
 	direction = direction.rotated(randf_range(-SPREAD, SPREAD))
 
-	
+	SoundManager.play(gun_sound)
 	var bullet: Bullet = bullet_scene.instantiate()
 	bullet.source = Bullet.Source.ENEMY
 	var spawn_offset = direction * (collision_shape_2d.shape.radius + 4.0)
