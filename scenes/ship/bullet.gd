@@ -25,7 +25,8 @@ func _ready() -> void:
 		Source.ENEMY:
 			set_collision_layer_value(5, true) # Enemy Bullet
 			set_collision_mask_value(1, true) # Player
-			bullet_speed = 500.0
+			bullet_speed = 450.0
+			modulate = Color("#39FF14")
 	
 	fx = bullet_fx_scene.instantiate()
 	get_tree().current_scene.add_child(fx)
